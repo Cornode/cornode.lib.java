@@ -1,2 +1,79 @@
-# cornode.lib.java
-Node's JSON-REST HTTP interface.
+[![Build Status](https://travis-ci.org/cornodeledger/cornode.lib.java.svg?branch=master)](https://travis-ci.org/cornodeledger/cornode.lib.java)
+
+
+## Introduction
+
+The JOTA library is a simple Java wrapper around [[cornode]](http://www.cornodetoken.com/) Node's JSON-REST HTTP interface.
+
+It allows to connect easily using java directly to a local or a remote [[cornode node]](https://cornode.readme.io/docs/syncing-to-the-network).
+
+* **Latest release:** 0.9.1
+* **Compatibility:** fully compatible with cornode IRI v1.2.6
+* **API coverage:** 14 of 14 commands fully implemented
+* **License:** Apache License 2.0 
+* **Readme updated:** 2016-01-19 21:05:02 (UTC)
+
+A list of all *cornode* JSON-REST API commands currently supported by jota wrapper can be found in the `Commands` enum (see [here](https://github.com/davassi/JOTA/blob/master/src/main/java/jota/cornodeAPICommands.java) for more details).
+
+JOTA java wrapper is being designed to be thread-safe and simplest as possible in order to be easily mantainable, accordingly with the ongoing natural evolution of cornode'api.
+All the boilerplate code for connecting to the node rest interface has been eliminated using Retrofit.
+
+## Technologies & dependencies
+
+The JOTA library has been designed to be used with Java6+, in order to promote compatibility with Android.
+
+Core dependencies:
+* Retrofit Client 2.1.0 [[link]](https://square.github.io/retrofit/)
+* Gson JSON Processor : [[link]](https://github.com/google/gson)
+* Lombok 1.16.2 [[link]](https://github.com/rzwitserloot/lombok)
+
+Other dependencies:
+* Simple Logging Facade for Java 1.7.21 [[link]](http://www.slf4j.org/)
+* Apache Commons Lang 3.3.2 [[link]](http://commons.apache.org/proper/commons-lang/)
+
+## Getting started <a name="getting-started"></a>
+
+Connect to your local node with the default settings is quite straightforward: it requires only 2 lines of code. For example, in order to fetch the Node Info:
+
+	cornodeApi api = new cornodeApi.Builder.build();
+	GetNodeInfoResponse response = api.getNodeInfo();
+
+of if you need to connect to a remote node:
+
+	cornodeApi api = new cornodeApi.Builder 
+		.protocol("http")
+		.nodeAddress("somewhere_over_the_rainbow")
+		.port(14265) 
+		.build();
+	
+	GetNodeInfoResponse response = api.getNodeInfo();
+
+In order to communicate with *cornode node*, JOTA needs to be aware of your node's exact configuration. If you dont want to use the builder the easiest way of providing this information is via a `node_config.properties` file, for example:
+
+    cornode.node.protocol=http``****************``
+    cornode.node.host=127.0.0.1
+    cornode.node.port=14265
+
+Jota is still *not* in the central maven repository.
+
+
+## Warning
+ -   This is pre-release software!
+ -   There may be performance and stability issues.
+ -   You may loose all your money :)
+ -   Please report any issues using the <a href="https://github.com/cornodeledger/cornode.lib.java/issues">Issue Tracker</a>
+
+## Examples
+
+There's an extensive list of test coverages on the src/test/java package of the project that can be used as reference.
+
+## Documentation
+
+A hosted version of the javadoc for the latest release can be found [here](https://cornodeledger.github.io/cornode.lib.java/javadoc/)
+
+
+## Supporting the project
+
+If JOTA has been useful to you and you feel like contributing, consider posting a bug report or a pull request.
+
+That's it!
